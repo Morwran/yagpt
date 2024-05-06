@@ -19,9 +19,9 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/Morwran/yagpt"
+    "context"
+    "fmt"
+    "github.com/Morwran/yagpt"
 )
 
 func main() {
@@ -29,27 +29,27 @@ func main() {
     oauthTok := os.Getenv("YA_OAUTH_TOK")
     iam, err := yagpt.NewYaIam(oauthTok)
     if err != nil {
-		fmt.Printf("filed to create connection for iam: %v\n", err)
-		return
-	}
+        fmt.Printf("filed to create connection for iam: %v\n", err)
+        return
+    }
     respIam, err := iam.CreateWithCtx(ctx)
     if err != nil {
-		fmt.Printf("filed to generating iam token: %v\n", err)
-		return
-	}
+        fmt.Printf("filed to generating iam token: %v\n", err)
+        return
+    }
     xfolderId := os.Getenv("YA_FOLDER_ID")
     ya, err := yagpt.NewYagptWithCtx(ctx, xfolderId)
     if err != nil {
-		fmt.Printf("filed to create connection for yagpt: %v\n", err)
-		return
-	}
+        fmt.Printf("filed to create connection for yagpt: %v\n", err)
+        return
+    }
     var m []yagpt.Message
-	m = append(m, yagpt.Message{Role: "user", Content: "hi"})
-	resp, err := ya.CompletionWithCtx(ctx, respIam.IamToken, m)
+    m = append(m, yagpt.Message{Role: "user", Content: "hi"})
+    resp, err := ya.CompletionWithCtx(ctx, respIam.IamToken, m)
     if err != nil {
-		fmt.Printf("ChatCompletion error: %v\n", err)
-		return
-	}
+        fmt.Printf("ChatCompletion error: %v\n", err)
+        return
+    }
     fmt.Println(resp.Alternatives[0].Message.Content)
 }
 ```
