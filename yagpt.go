@@ -11,6 +11,8 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
+const YaModelLite = "yandexgpt-lite"
+
 type (
 	YaGPTFace interface {
 		CompletionWithCtx(ctx context.Context, iamTok string, m []Message) (*CompletionResponse, error)
@@ -61,7 +63,7 @@ func (y *YaGPT) completion(ctx context.Context, iamTok string, m []Message) (*Co
 		msgs = append(msgs, msg.convertTo())
 	}
 	complCli, err := y.yaCli.Completion(ctx, &ya.CompletionRequest{
-		ModelUri: fmt.Sprintf("gpt://%s/%s", y.folderId, internal.YaModelLite),
+		ModelUri: fmt.Sprintf("gpt://%s/%s", y.folderId, YaModelLite),
 		Messages: msgs,
 	})
 	if err != nil {
