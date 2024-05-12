@@ -2,6 +2,7 @@ package yagpt
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"testing"
 
@@ -17,12 +18,12 @@ type yaCliTestSuite struct {
 
 func (sui *yaCliTestSuite) SetupSuite() {
 	sui.ctx = context.Background()
-	oauthTok := os.Getenv("YA_OAUTH_TOK")
+	oauthTok := os.Getenv("YA_EXTAPI_YAGPT_OAUTH_TOKEN")
 	sui.Require().NotEmpty(oauthTok)
 	iam, err := NewYaIam(oauthTok)
 	sui.Require().NoError(err)
 	sui.iam = iam
-	xfolderId := os.Getenv("YA_FOLDER_ID")
+	xfolderId := os.Getenv("YA_EXTAPI_YAGPT_FOLDER_ID")
 	sui.Require().NotEmpty(xfolderId)
 	ya, err := NewYagptWithCtx(sui.ctx, xfolderId)
 	sui.Require().NoError(err)
@@ -52,6 +53,7 @@ func (sui *yaCliTestSuite) Test_YaCompl() {
 	sui.Require().NotNil(resp)
 	sui.Require().NotNil(resp.Alternatives)
 	sui.Require().NotEmpty(resp.Alternatives[0].Message.Content)
+	fmt.Println(resp.Alternatives[0].Message.Content)
 }
 
 func Test_YaCli(t *testing.T) {

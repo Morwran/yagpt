@@ -9,6 +9,7 @@ import (
 	v1 "github.com/yandex-cloud/go-genproto/yandex/cloud/ai/foundation_models/v1"
 	ya "github.com/yandex-cloud/go-genproto/yandex/cloud/ai/foundation_models/v1/text_generation"
 	"google.golang.org/grpc/metadata"
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 const YaModelLite = "yandexgpt-lite"
@@ -65,6 +66,11 @@ func (y *YaGPT) completion(ctx context.Context, iamTok string, m []Message) (*Co
 	complCli, err := y.yaCli.Completion(ctx, &ya.CompletionRequest{
 		ModelUri: fmt.Sprintf("gpt://%s/%s", y.folderId, YaModelLite),
 		Messages: msgs,
+		CompletionOptions: &v1.CompletionOptions{
+			Temperature: &wrapperspb.DoubleValue{Value: 0.6},
+			MaxTokens:   &wrapperspb.Int64Value{Value: 2000},
+			Stream:      false,
+		},
 	})
 	if err != nil {
 		return nil, errors.WithMessage(err, "failed completion")
