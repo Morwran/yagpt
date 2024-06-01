@@ -1,3 +1,4 @@
+[![lint](https://github.com/Morwran/yagpt/actions/workflows/testing.yml/badge.svg)](https://github.com/Morwran/yagpt/actions/workflows/testing.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/Morwran/yagpt.svg)](https://pkg.go.dev/github.com/Morwran/yagpt)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Morwran/yagpt)](https://goreportcard.com/report/github.com/Morwran/yagpt)
 

@@ -53,7 +53,6 @@ func (y *YaGPT) Completion(iamTok string, m []Message) (*CompletionResponse, err
 }
 
 func (y *YaGPT) completion(ctx context.Context, iamTok string, m []Message) (*CompletionResponse, error) {
-
 	md := metadata.Pairs(
 		"Authorization", "Bearer "+iamTok,
 		"x-folder-id", y.folderId)
